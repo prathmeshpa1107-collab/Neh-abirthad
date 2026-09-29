@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>WishMotion - Make Every Moment Memorable</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Playfair+Display:wght@500;600;700&family=Poppins:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fff0f5, #f5efff, #fff8e8);
+            font-family: 'Poppins', sans-serif;
+            color: #4b3040;
+            overflow-x: hidden;
+        }
+
+        /* Main container */
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+            margin: auto;
+            padding: 25px 15px;
+        }
+
+        /* Pages */
+
+        .page {
+            display: none;
+            min-height: 90vh;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .page.active {
+            display: flex;
+        }
+
+        .content {
+            width: 100%;
+            max-width: 750px;
+            margin: auto;
+        }
+
+        /* Headings */
+
+        h1,
+        h2 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        h1 {
+            font-size: 55px;
+            color: #c94f7c;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 34px;
+            color: #a84570;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-family: 'Poppins', sans-serif;
+            font-size: 17px;
+            line-height: 1.8;
+        }
+
+        /* Page 1 */
+
+        .welcome {
+            background: rgba(255,255,255,0.75);
+            padding: 50px 25px;
+            border-radius: 30px;
+            box-shadow: 0 15px 40px rgba(100, 50, 80, 0.15);
+        }
+
+        .emoji {
+            font-size: 60px;
+            margin-bottom: 15px;
+            animation: float 2s infinite ease-in-out;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        /* Buttons */
+
+        button {
+            border: none;
+            background: #c94f7c;
+            color: white;
+            padding: 14px 25px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            margin: 8px;
+            box-shadow: 0 7px 20px rgba(150, 60, 100, 0.2);
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            background: #a83d66;
+        }
+
+        .music-note {
+            margin-top: 15px;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        /* Gallery */
+
+        .gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 25px;
+        }
+
+        .gallery-item {
+            height: 220px;
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            overflow: hidden;
+            border: 2px solid rgba(255,255,255,0.8);
+            box-shadow: 0 8px 25px rgba(150, 70, 100, 0.15);
+        }
+
+        .gallery-item:nth-child(1) {
+            background: #fff0f5;
+        }
+
+        .gallery-item:nth-child(2) {
+            background: #f4efff;
+        }
+
+        .gallery-item:nth-child(3) {
+            background: #fff5df;
+        }
+
+        .gallery-item:nth-child(4) {
+            background: #eaf8f5;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 15px;
+        }
+
+        /* Note */
+
+        .note {
+            background: rgba(255,255,255,0.8);
+            padding: 35px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(100, 50, 80, 0.12);
+
+            font-family: 'Caveat', cursive;
+            font-size: 28px;
+            line-height: 1.5;
+            margin-top: 20px;
+        }
+
+        /* Surprise */
+
+        .gift {
+            font-size: 110px;
+            cursor: pointer;
+            animation: float 2s infinite ease-in-out;
+            margin: 25px;
+        }
+
+        .surprise-text {
+            display: none;
+            background: rgba(255,255,255,0.85);
+            padding: 30px;
+            border-radius: 25px;
+            margin-top: 20px;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .surprise-text.show {
+            display: block;
+        }
+
+        /* Final */
+
+        .final-box {
+            background: rgba(255,255,255,0.8);
+            padding: 45px 25px;
+            border-radius: 30px;
+            box-shadow: 0 15px 40px rgba(100, 50, 80, 0.15);
+        }
+
+        .heart {
+            font-size: 70px;
+            animation: heartbeat 1.2s infinite;
+            margin-bottom: 15px;
+        }
+
+        .small-text {
+            margin-top: 20px;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        /* Page navigation */
+
+        .navigation {
+            margin-top: 25px;
+        }
+
+        /* Animations */
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.15);
+            }
+        }
+
+        /* Mobile */
+
+        @media (max-width: 600px) {
+
+            h1 {
+                font-size: 40px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-item {
+                height: 250px;
+            }
+
+            .welcome {
+                padding: 40px 20px;
+            }
+
+            .note {
+                font-size: 25px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <!-- MUSIC -->
+
+    <audio id="bgMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+
+    <div class="container">
+
+
+        <!-- PAGE 1 -->
+
+        <section class="page active" id="page1">
+
+            <div class="content">
+
+                <div class="welcome">
+
+                    <div class="emoji">
+                        🎉
+                    </div>
+
+                    <h1>Happy Delated Birthday Neha❤️</h1>
+
+                    <p class="subtitle">
+                        A little surprise has been created especially for you.
+                    </p>
+
+                    <p>
+                        Click below to begin your special WishMotion experience.
+                    </p>
+
+                    <button onclick="startExperience()">
+                        🎵 Start the Surprise
+                    </button>
+
+                    <div class="music-note">
+                        🎶 Music will play during your experience
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PAGE 2 -->
+
+        <section class="page" id="page2">
+
+            <div class="content">
+
+                <h2>📸 Beautiful Memories</h2>
+
+                <p>
+                    Some moments are too special to be forgotten.
+                </p>
+
+                <div class="gallery">
+
+                    <div class="gallery-item">
+                        <img src="IMG-1.jpg" alt="Memory 1">
+                    </div>
+
+                    <div class="gallery-item">
+                        <img src="IMG-2.jpg" alt="Memory 2">
+                    </div>
+
+                    <div class="gallery-item">
+                        <img src="IMG-3.jpg" alt="Memory 3">
+                    </div>
+
+                    <div class="gallery-item">
+                        <img src="IMG-4.jpg" alt="Memory 4">
+                    </div>
+
+                </div>
+
+                <div class="navigation">
+
+                    <button onclick="nextPage()">
+                        Next ❤️
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PAGE 3 -->
+
+        <section class="page" id="page3">
+
+            <div class="content">
+
+                <h2>💌 A Little Note</h2>
+
+                <div class="note">
+
+                    Wishing you a day filled with happiness,
+                    laughter and beautiful memories.
+
+                    <br><br>
+
+                    May every new moment bring you something
+                    wonderful and may your dreams come true.
+
+                    <br><br>
+
+                    Keep smiling and keep making beautiful memories! ❤️
+
+                </div>
+
+                <div class="navigation">
+
+                    <button onclick="nextPage()">
+                        Continue ✨
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PAGE 4 -->
+
+        <section class="page" id="page4">
+
+            <div class="content">
+
+                <h2>🎁 A Little Surprise</h2>
+
+                <p>
+                    Something special is waiting for you...
+                </p>
+
+                <div class="gift" onclick="openGift()">
+                    🎁
+                </div>
+
+                <div class="surprise-text" id="surpriseText">
+
+                    <h2>✨ Surprise! ✨</h2>
+
+                    <p>
+                        You deserve all the happiness,
+                        love and wonderful moments in the world!
+                    </p>
+
+                    <br>
+
+                    <p>
+                        Never stop smiling. 💖
+                    </p>
+
+                </div>
+
+                <div class="navigation">
+
+                    <button onclick="nextPage()">
+                        Final Message 💕
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PAGE 5 -->
+
+        <section class="page" id="page5">
+
+            <div class="content">
+
+                <div class="final-box">
+
+                    <div class="heart">
+                        💖
+                    </div>
+
+                    <h2>Make Every Moment Memorable</h2>
+
+                    <p>
+                        Life is made of little moments,
+                        beautiful memories and people
+                        who make us smile.
+                    </p>
+
+                    <br>
+
+                    <p>
+                        Wishing you many more wonderful
+                        moments ahead!
+                    </p>
+
+                    <br>
+
+                    <h2>Happy Delated Birthday! baby 🎂</h2>
+
+                    <p class="small-text">
+                        Made with ❤️ by Akshay
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        let currentPage = 1;
+
+        const music = document.getElementById("bgMusic");
+
+
+        /* Start music from Page 1 */
+
+        function startExperience() {
+
+            music.play().catch(function(error) {
+
+                console.log("Music could not start:", error);
+
+            });
+
+            nextPage();
+
+        }
+
+
+        /* Change pages */
+
+        function nextPage() {
+
+            document.getElementById("page" + currentPage)
+                .classList.remove("active");
+
+            currentPage++;
+
+            if (currentPage > 5) {
+                currentPage = 5;
+            }
+
+            document.getElementById("page" + currentPage)
+                .classList.add("active");
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }
+
+
+        /* Open surprise */
+
+        function openGift() {
+
+            const surprise =
+                document.getElementById("surpriseText");
+
+            surprise.classList.add("show");
+
+            createConfetti();
+
+        }
+
+
+        /* Confetti */
+
+        function createConfetti() {
+
+            for (let i = 0; i < 80; i++) {
+
+                const confetti =
+                    document.createElement("div");
+
+                confetti.innerHTML = "✨";
+
+                confetti.style.position = "fixed";
+                confetti.style.left =
+                    Math.random() * 100 + "vw";
+                confetti.style.top = "-20px";
+                confetti.style.fontSize =
+                    Math.random() * 15 + 10 + "px";
+
+                confetti.style.zIndex = "9999";
+
+                document.body.appendChild(confetti);
+
+                const duration =
+                    Math.random() * 2000 + 2000;
+
+                confetti.animate(
+                    [
+                        {
+                            transform: "translateY(0) rotate(0deg)",
+                            opacity: 1
+                        },
+                        {
+                            transform:
+                                "translateY(100vh) rotate(360deg)",
+                            opacity: 0
+                        }
+                    ],
+                    {
+                        duration: duration,
+                        easing: "linear"
+                    }
+                );
+
+                setTimeout(function() {
+                    confetti.remove();
+                }, duration);
+
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>
